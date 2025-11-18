@@ -1,6 +1,7 @@
 {
   "domain": "mppt_mq",
   "name": "MPPT MQ (Mạnh Quân SmartSolar)",
+  "codeowners": ["@loctrantv"],
   "version": "1.0.0",
   "requirements": ["paho-mqtt==1.6.1"],
   "config_flow": true,
