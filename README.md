@@ -1,6 +1,7 @@
 
 # Tích hợp MPPT MQ — Sạc Solar MPPT Mạnh Quân cho Home Assistant
 ![alt text](image.png)
+
 **Cài đặt qua HACS (bằng đường dẫn GitHub)**
 1. Thêm repository này vào HACS như một custom repository (Category: Integrations).
 2. Cài đặt mục `MPPT MQ (HACS friendly)` từ HACS.
