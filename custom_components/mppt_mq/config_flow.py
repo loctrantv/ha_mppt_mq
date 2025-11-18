@@ -11,9 +11,7 @@ DATA_SCHEMA = vol.Schema(
         vol.Optional("type", default=DEVICE_TYPE): vol.In(["40a", "45a", "60a"]),
         vol.Optional("device_id", default=DEFAULT_DEVICE_ID): str,
         vol.Optional("device_name", default=DEFAULT_DEVICE_NAME): str,
-        vol.Optional("reset_timeout", default=DEFAULT_RESET_TIMEOUT): int,
-        vol.Optional(CONF_USERNAME, default=""): str,
-        vol.Optional(CONF_PASSWORD, default=""): str,
+        vol.Optional("reset_timeout", default=DEFAULT_RESET_TIMEOUT): int
     }
 )
 
