@@ -19,13 +19,10 @@ YAML example (optional):
 mppt_mq:
   host: mqttx.smartsolar.io.vn
   port: 8084
-  path: /mqtt
-  topic: manhquan/device/mppt_charger/log/45a/15315806
-  username: web_app
-  password: Abc@13579
-  device_id: 15315806
+  type: '45a'
+  device_id: xxxxxxxx
   device_name: MPPT
   reset_timeout: 30
 ```
 
-After setup the integration will create sensors like `sensor.15315806_pv_voltage` and a `sensor.15315806_availability` that will be updated as data arrives.
+After setup the integration will create sensors like `sensor.xxxxxxxx_pv_voltage` and a `sensor.xxxxxxxx_availability` that will be updated as data arrives.
