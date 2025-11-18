@@ -1,4 +1,4 @@
-DOMAIN = "mqttx.smartsolar.io.vn"
+DOMAIN = "mppt_mq"
 LOGGER_NAME = "mppt_mq"
 DEFAULT_PORT = 8084
 DEVICE_TYPE = "45a"
