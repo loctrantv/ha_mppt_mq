@@ -92,6 +92,11 @@ class MPPTSensor(SensorEntity):
         return {
             "today_kwh": "total_increasing",
             "total_kwh": "total_increasing",
+            "pv_voltage": "measurement",
+            "bat_voltage": "measurement",
+            "pv_current": "measurement",
+            "bat_current": "measurement",
+            "charge_power": "measurement"
         }.get(name, None)
     
     def _async_handle_update(self, entry_id: str, name: str, payload: Any):
