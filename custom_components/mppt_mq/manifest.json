@@ -4,6 +4,8 @@
   "codeowners": ["@loctrantv"],
   "version": "1.0.0",
   "config_flow": true,
+  "requirements": ["paho-mqtt"],
+  "platforms": ["sensor"],
   "documentation": "https://github.com/loctrantv/ha_mppt_mq",
   "issue_tracker": "https://github.com/loctrantv/ha_mppt_mq/issues",
   "integration_type": "device",
