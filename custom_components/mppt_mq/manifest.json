@@ -4,6 +4,6 @@
   "version": "1.0.0",
   "requirements": ["paho-mqtt==1.6.1"],
   "config_flow": true,
-  "documentation": "https://github.com/your/repo",
+  "documentation": "https://github.com/loctrantv/ha_mppt_mq",
   "iot_class": "cloud_polling"
 }
