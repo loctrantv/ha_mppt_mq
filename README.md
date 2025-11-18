@@ -12,7 +12,7 @@
 - `host`: tên host hoặc IP của MQTT cloud (ví dụ: `mqttx.smartsolar.io.vn`).
 - `port`: cổng WebSocket (mặc định `8084`).
 - `username` / `password`: thông tin xác thực MQTT nếu cần.
-- `device_id`: ID thiết bị (dùng làm tiền tố entity id), mặc định `15315806`.
+- `device_id`: ID thiết bị (dùng làm tiền tố entity id).
 - `type`: Loại thiết bị mặc định `45a`.
 - `device_name`: tên hiển thị của thiết bị (mặc định `MPPT`).
 - `reset_timeout`: thời gian (giây) không nhận dữ liệu thì đánh dấu offline (mặc định `30`).
