@@ -3,6 +3,5 @@ LOGGER_NAME = "mppt_mq"
 DEFAULT_PORT = 8084
 DEVICE_TYPE = "45a"
 # Default device id can be customized by user; set a reasonable example
-DEFAULT_DEVICE_ID = "15315806"
 DEFAULT_DEVICE_NAME = "MPPT"
 DEFAULT_RESET_TIMEOUT = 30
