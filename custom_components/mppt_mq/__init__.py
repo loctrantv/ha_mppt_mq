@@ -3,12 +3,14 @@ import json
 import ssl
 import time
 import threading
+from dataclasses import asdict
 
 from homeassistant import config_entries
 from homeassistant.core import HomeAssistant
 from homeassistant.const import CONF_HOST, CONF_PORT, CONF_USERNAME, CONF_PASSWORD
+from homeassistant.helpers import aiohttp_client
 
-from .const import DOMAIN, DEVICE_TYPE, DEFAULT_DEVICE_NAME, DEFAULT_RESET_TIMEOUT
+from .const import DOMAIN, DEVICE_TYPE, DEFAULT_DEVICE_ID, DEFAULT_DEVICE_NAME, DEFAULT_RESET_TIMEOUT
 
 import logging
 _LOGGER = logging.getLogger(__name__)
@@ -31,7 +33,7 @@ class MQTTHandler:
 
         self.username = data.get(CONF_USERNAME, 'web_app')
         self.password = data.get(CONF_PASSWORD,'Abc@13579')
-        self.device_id = data.get("device_id", '')
+        self.device_id = data.get("device_id", DEFAULT_DEVICE_ID)
         self.topic = f'manhquan/device/mppt_charger/log/{data.get("type", DEVICE_TYPE)}/{self.device_id}'
         self.device_name = data.get("device_name", DEFAULT_DEVICE_NAME)
         self.reset_timeout = data.get("reset_timeout", DEFAULT_RESET_TIMEOUT)
