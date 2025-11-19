@@ -129,6 +129,7 @@ class MQTTHandler:
             sensors = store.setdefault("sensors", set())
 
             new_sensors = []
+            is_data = False
             for sensor in payload["dataStreams"]:
                 name = sensor.get("name")
                 value = sensor.get("value")
@@ -139,11 +140,9 @@ class MQTTHandler:
                     "value": value,
                     "raw": sensor,
                 }
-
+                is_data = True
                 # notify sensor platform about update (schedule on event loop)
-                self.hass.loop.call_soon_threadsafe(
-                    async_dispatcher_send, self.hass, SIGNAL_SENSOR_UPDATE, self.entry.entry_id, name, latest[name]
-                )
+                self.hass.loop.call_soon_threadsafe(async_dispatcher_send, self.hass, SIGNAL_SENSOR_UPDATE, self.entry.entry_id, name, latest[name])
 
                 if name not in sensors:
                     sensors.add(name)
@@ -154,11 +153,12 @@ class MQTTHandler:
                     async_dispatcher_send, self.hass, SIGNAL_NEW_SENSORS, self.entry.entry_id, new_sensors
                 )
 
-            # availability
-            latest["__availability__"] = "online"
-            self.hass.loop.call_soon_threadsafe(
-                async_dispatcher_send, self.hass, SIGNAL_SENSOR_UPDATE, self.entry.entry_id, "__availability__", {"value": "online"}
-            )
+            if is_data:
+                # availability
+                latest["__availability__"] = "online"
+                self.hass.loop.call_soon_threadsafe(
+                    async_dispatcher_send, self.hass, SIGNAL_SENSOR_UPDATE, self.entry.entry_id, "__availability__", {"value": "online"}
+                )
 
         except Exception:
             _LOGGER.exception("Error processing payload")
@@ -169,7 +169,10 @@ class MQTTHandler:
             while True:
                 now = time.time()
                 if (now - self._last_update) > self.reset_timeout:
-                    self.latest["__availability__"] = "offline"
+                    store = self.hass.data.setdefault(DOMAIN, {}).setdefault(self.entry.entry_id, {})
+                    latest = store.setdefault("latest", {})
+                    sensors = store.setdefault("sensors", set())
+                    latest["__availability__"] = "offline"
                     async_dispatcher_send(self.hass, SIGNAL_SENSOR_UPDATE, self.entry.entry_id, "__availability__", {"value": "offline"})
                 await asyncio.sleep(5)
         except asyncio.CancelledError:
