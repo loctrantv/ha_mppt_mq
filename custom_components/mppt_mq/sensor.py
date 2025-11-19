@@ -25,6 +25,7 @@ class MPPTSensor(SensorEntity):
         self._unit = self.get_unit(name)
         self._device_class = self.get_device_class(name)
         self._state_class = self.get_state_class(name)
+        self._is_online = True
         self._device_info = device_info
         self._unsub = None
 
@@ -47,6 +48,9 @@ class MPPTSensor(SensorEntity):
     @property
     def device_info(self) -> dict:
         return self._device_info
+    def available(self):
+        """HA kiểm tra availability của entity tại đây."""
+        return self._is_online
     @property
     def state_class(self) -> str | None:
         return self._state_class
@@ -106,17 +110,11 @@ class MPPTSensor(SensorEntity):
         if name == self._name:
             # payload is dict with value/unit/etc
             if isinstance(payload, dict):
-                self._state = payload.get("value")
+                if payload.get("value"):
+                    self._state = payload.get("value")
+                self._is_online = payload.get("availability") != False or self.get_state_class(name) == 'total_increasing'
             else:
                 self._state = payload
-            # schedule state write on HA event loop via async_add_job
-            self.hass.async_add_job(self.async_write_ha_state)
-        if name == "__availability__" and self._name == "availability":
-            if isinstance(payload, dict):
-                self._state = payload.get("value")
-            else:
-                self._state = payload
-            # schedule state write on HA event loop via async_add_job
             self.hass.async_add_job(self.async_write_ha_state)
 
 
