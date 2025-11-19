@@ -170,6 +170,8 @@ class MQTTHandler:
                 now = time.time()
                 if (now - self._last_update) > self.reset_timeout:
                     store = self.hass.data.setdefault(DOMAIN, {}).setdefault(self.entry.entry_id, {})
+                    latest = store.setdefault("latest", {})
+                    latest["__availability__"] = "offline"
                     sensors = store.get("sensors", set())
                     for name in sensors:
                         if name != "__availability__":
